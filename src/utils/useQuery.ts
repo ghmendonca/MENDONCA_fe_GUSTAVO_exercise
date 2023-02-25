@@ -1,18 +1,27 @@
 import {useEffect, useState} from 'react';
 
-export const useQuery = <Response>(fn: (() => Response)) => {
-    const [loading, setLoading] = useState<boolean>(true);
-    const [response, setResponse] = useState<Response | null>(null);
+interface UseQueryReturn<T> {
+    data: T | null;
+    loading: boolean;
+}
+
+export const useQuery = <T = any>(fn: (() => Promise<T>)): UseQueryReturn<T> => {
+    const [data, setData] = useState<UseQueryReturn<T>>({
+        data: null,
+        loading: true,
+    });
 
     useEffect(() => {
         const fetch = async () => {
-            const data = await fn();
-            setResponse(data);
-            setLoading(false);
+            const response = await fn();
+            setData({
+                data: response,
+                loading: false,
+            });
         };
 
         fetch();
-    }, [setResponse, setLoading, fn]);
+    }, [setData, fn]);
 
-    return {loading, data: response};
+    return data;
 };

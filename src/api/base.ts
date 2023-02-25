@@ -1,7 +1,7 @@
 import {BaseApiParams} from './types';
 
 export class BaseApi {
-    private baseUrl: string = process.env.REACT_APP_API_BASE_URL;
+    private baseUrl: string = process.env.REACT_APP_API_BASE_URL || '';
 
     private url: string;
 

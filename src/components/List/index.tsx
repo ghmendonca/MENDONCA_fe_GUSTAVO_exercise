@@ -5,9 +5,9 @@ import {Spinner} from '../Spinner';
 import {Container} from './styles';
 
 interface Props {
-    items?: ListItem[];
+    items: ListItem[];
     hasNavigation?: boolean;
-    isLoading: string;
+    isLoading: boolean;
 }
 
 const List = ({items, hasNavigation = true, isLoading}: Props) => {

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {ListItem, Team as TeamsList} from 'types';
+import {useQuery} from 'utils/useQuery';
 import teamsApi from '../api/teams';
 import Header from '../components/Header';
 import List from '../components/List';
@@ -23,22 +24,16 @@ var MapT = (teams: TeamsList[]) => {
 };
 
 const Teams = () => {
-    const [teams, setTeams] = React.useState<any>([]);
-    const [isLoading, setIsLoading] = React.useState<any>(true);
+    const {data: teams, loading} = useQuery(() => teamsApi.getAll());
 
-    React.useEffect(() => {
-        const getTeams = async () => {
-            const response = await teamsApi.getAll();
-            setTeams(response);
-            setIsLoading(false);
-        };
-        getTeams();
-    }, []);
+    if (!teams) {
+        return null;
+    }
 
     return (
         <Container>
             <Header title="Teams" showBackButton={false} />
-            <List items={MapT(teams)} isLoading={isLoading} />
+            <List items={MapT(teams)} isLoading={loading} />
         </Container>
     );
 };
