@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {ListItem, Teams as TeamsList} from 'types';
-import {getTeams as fetchTeams} from '../api';
+import {ListItem, Team as TeamsList} from 'types';
+import teamsApi from '../api/teams';
 import Header from '../components/Header';
 import List from '../components/List';
 import {Container} from '../components/GlobalComponents';
@@ -28,7 +28,7 @@ const Teams = () => {
 
     React.useEffect(() => {
         const getTeams = async () => {
-            const response = await fetchTeams();
+            const response = await teamsApi.getAll();
             setTeams(response);
             setIsLoading(false);
         };

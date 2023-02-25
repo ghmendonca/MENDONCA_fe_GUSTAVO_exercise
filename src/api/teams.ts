@@ -1,5 +1,5 @@
-import { Team } from "types";
-import { BaseApi } from "./base";
+import {Team} from 'types';
+import {BaseApi} from './base';
 
 class TeamsApi extends BaseApi {
     constructor() {
@@ -8,14 +8,14 @@ class TeamsApi extends BaseApi {
 
     public async getAll(): Promise<Team[]> {
         return super.fetch<Team[]>({
-            method: 'GET'
+            method: 'GET',
         });
     }
 
     public async getById(id: string): Promise<Team> {
         return super.fetch<Team>({
             path: id,
-            method: 'GET'
+            method: 'GET',
         });
     }
 }
