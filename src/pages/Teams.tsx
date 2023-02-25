@@ -1,39 +1,36 @@
-import * as React from 'react';
-import {ListItem, Team as TeamsList} from 'types';
+import React, {useMemo} from 'react';
+import {ListItem} from 'types';
 import {useQuery} from 'utils/useQuery';
 import teamsApi from '../api/teams';
 import Header from '../components/Header';
 import List from '../components/List';
 import {Container} from '../components/GlobalComponents';
 
-var MapT = (teams: TeamsList[]) => {
-    return teams.map(team => {
-        var columns = [
-            {
-                key: 'Name',
-                value: team.name,
-            },
-        ];
-        return {
-            id: team.id,
-            url: `/team/${team.id}`,
-            columns,
-            navigationProps: team,
-        } as ListItem;
-    });
-};
-
 const Teams = () => {
     const {data: teams, loading} = useQuery(() => teamsApi.getAll());
+    
+    const items: ListItem[] = useMemo(() => {
+        if(!teams) {
+            return [];
+        }
 
-    if (!teams) {
-        return null;
-    }
+        return teams.map((team) => ({
+            id: team.id,
+            url: `/team/${team.id}`,
+            columns: [
+                {
+                    key: 'Name',
+                    value: team.name,
+                },
+            ],
+            navigationProps: team,
+        }));
+    }, [teams]);    
 
     return (
         <Container>
             <Header title="Teams" showBackButton={false} />
-            <List items={MapT(teams)} isLoading={loading} />
+            <List items={items} isLoading={loading} />
         </Container>
     );
 };
