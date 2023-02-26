@@ -1,13 +1,11 @@
 import * as React from 'react';
-import {useLocation} from 'react-router-dom';
-import {UserData} from 'types';
-import Card from '../components/Card';
-import {Container} from '../components/GlobalComponents';
-import Header from '../components/Header';
+import Card from '../../components/Card';
+import {Container} from '../../components/GlobalComponents';
+import Header from '../../components/Header';
+import {useComponentState} from './state';
 
 const UserOverview = () => {
-    const location = useLocation();
-    const user = location.state as UserData;
+    const {user} = useComponentState();
 
     return (
         <Container>

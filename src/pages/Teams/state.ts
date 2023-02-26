@@ -1,12 +1,9 @@
-import React, {useMemo} from 'react';
+import {useMemo} from 'react';
 import {ListItem} from 'types';
 import {useQuery} from 'utils/useQuery';
-import teamsApi from '../api/teams';
-import Header from '../components/Header';
-import List from '../components/List';
-import {Container} from '../components/GlobalComponents';
+import teamsApi from '../../api/teams';
 
-const Teams = () => {
+export const useComponentState = () => {
     const {data: teams, loading} = useQuery(() => teamsApi.getAll());
     
     const items: ListItem[] = useMemo(() => {
@@ -27,12 +24,8 @@ const Teams = () => {
         }));
     }, [teams]);
 
-    return (
-        <Container>
-            <Header title="Teams" showBackButton={false} />
-            <List items={items} isLoading={loading} />
-        </Container>
-    );
+    return {
+        loading,
+        teams: items,
+    };
 };
-
-export default Teams;
