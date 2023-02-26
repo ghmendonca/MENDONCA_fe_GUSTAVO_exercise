@@ -1,11 +1,10 @@
 import {useCallback, useMemo, useState} from 'react';
+import {useTeams} from 'state/teams';
 import {ListItem} from 'types';
-import {useQuery} from 'utils/useQuery';
-import teamsApi from '../../api/teams';
 
 export const useComponentState = () => {
     const [filter, setFilter] = useState<string>('');
-    const {data: teams, loading} = useQuery(() => teamsApi.getAll());
+    const {data: teams, loading} = useTeams();
     
     const items: ListItem[] = useMemo(() => {
         if(!teams) {

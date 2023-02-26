@@ -1,14 +1,13 @@
 import {useCallback, useMemo, useState} from 'react';
 import {useLocation, useParams} from 'react-router-dom';
 import {ListItem} from 'types';
-import {useQuery} from 'utils/useQuery';
-import teamsApi from 'api/teams';
+import {useTeam} from 'state/teams';
 
 export const useComponentState = () => {
     const [filter, setFilter] = useState<string>('');
     const location = useLocation();
     const {teamId} = useParams();
-    const {data: team, loading} = useQuery(() => teamsApi.getById(teamId || ''));
+    const {data: team, loading} = useTeam(teamId || '');
 
     const items: ListItem[] = useMemo(() => {
         if (!team) {

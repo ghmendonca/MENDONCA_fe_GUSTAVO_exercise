@@ -1,5 +1,5 @@
+import {teamsApi} from 'api';
 import {useQuery} from 'utils/useQuery';
-import teamsApi from '../api/teams';
 
 export const useTeams = () => {
     return useQuery(() => teamsApi.getAll());
