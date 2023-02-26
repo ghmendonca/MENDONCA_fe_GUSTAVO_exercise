@@ -3,10 +3,16 @@ export interface Team {
     name: string;
 }
 
-export interface TeamOverview {
-    id: string;
+export interface TeamOverview extends Team {
     teamLeadId: string;
     teamMemberIds: string[];
+}
+
+export interface TeamData {
+    id: string;
+    name: string;
+    teamLead: UserData;
+    teamMembers: UserData[];
 }
 
 export interface UserData {

@@ -1,5 +1,6 @@
-import {Team} from 'types';
+import {Team, TeamData, TeamOverview} from 'types';
 import {BaseApi} from './base';
+import userApi from './users';
 
 class TeamsApi extends BaseApi {
     constructor() {
@@ -12,11 +13,23 @@ class TeamsApi extends BaseApi {
         });
     }
 
-    public async getById(id: string): Promise<Team> {
-        return super.fetch<Team>({
+    public async getById(id: string): Promise<TeamData> {
+        const team = await super.fetch<TeamOverview>({
             path: id,
             method: 'GET',
         });
+
+        const [teamLead, teamMembers] = await Promise.all([
+            userApi.getUserById(team.teamLeadId),
+            Promise.all(team.teamMemberIds.map((userId) => userApi.getUserById(userId))),
+        ]);
+
+        return {
+            id: team.id,
+            name: team.name,
+            teamLead,
+            teamMembers,
+        };
     }
 }
 

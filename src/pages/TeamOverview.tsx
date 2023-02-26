@@ -1,11 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import {useLocation, useParams} from 'react-router-dom';
 import {ListItem, UserData} from 'types';
-import {getTeamOverview, getUserData} from '../api';
+import {useQuery} from 'utils/useQuery';
 import Card from '../components/Card';
 import {Container} from '../components/GlobalComponents';
 import Header from '../components/Header';
 import List from '../components/List';
+import teamsApi from '../api/teams';
 
 var mapArray = (users: UserData[]) => {
     return users.map(u => {
@@ -54,41 +55,20 @@ var mapTLead = tlead => {
     return <Card columns={columns} url={`/user/${tlead.id}`} navigationProps={tlead} />;
 };
 
-interface PageState {
-    teamLead?: UserData;
-    teamMembers?: UserData[];
-}
-
 const TeamOverview = () => {
     const location = useLocation();
     const {teamId} = useParams();
-    const [pageData, setPageData] = React.useState<PageState>({});
-    const [isLoading, setIsLoading] = React.useState<boolean>(true);
+    const {data: team, loading} = useQuery(() => teamsApi.getById(teamId || ''));
 
-    React.useEffect(() => {
-        var getTeamUsers = async () => {
-            const {teamLeadId, teamMemberIds = []} = await getTeamOverview(teamId);
-            const teamLead = await getUserData(teamLeadId);
-
-            const teamMembers = [];
-            for(var teamMemberId of teamMemberIds) {
-                const data = await getUserData(teamMemberId);
-                teamMembers.push(data);
-            }
-            setPageData({
-                teamLead,
-                teamMembers,
-            });
-            setIsLoading(false);
-        };
-        getTeamUsers();
-    }, [teamId]);
+    if(!team) {
+        return null;
+    }
 
     return (
         <Container>
             <Header title={`Team ${location.state.name}`} />
-            {!isLoading && mapTLead(pageData.teamLead)}
-            <List items={mapArray(pageData?.teamMembers ?? [])} isLoading={isLoading} />
+            {!loading && mapTLead(team.teamLead)}
+            <List items={mapArray(team.teamMembers)} isLoading={loading} />
         </Container>
     );
 };

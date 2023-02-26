@@ -1,5 +1,5 @@
-import { UserData } from "types";
-import { BaseApi } from "./base";
+import {UserData} from 'types';
+import {BaseApi} from './base';
 
 class UsersApi extends BaseApi {
     constructor() {
@@ -9,7 +9,7 @@ class UsersApi extends BaseApi {
     public async getUserById(id: string): Promise<UserData> {
         return super.fetch<UserData>({
             path: id,
-            method: 'GET'
+            method: 'GET',
         });
     }
 }
