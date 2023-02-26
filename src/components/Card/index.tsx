@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Team, UserData} from 'types';
 import {useComponentState} from './state';
-import {Container} from './styles';
+import {CardItem, Container} from './styles';
 
 export interface Props {
     id?: string;
@@ -36,9 +36,10 @@ const Card = ({
             onClick={onClick}
         >
             {columns.map(({key: columnKey, value}) => (
-                <p key={columnKey}>
-                    <strong>{columnKey}</strong>&nbsp;{value}
-                </p>
+                <CardItem key={columnKey}>
+                    <strong>{columnKey}</strong>
+                    <p>{value}</p>
+                </CardItem>
             ))}
         </Container>
     );

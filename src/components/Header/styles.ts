@@ -9,7 +9,9 @@ export const HeaderContainer = styled.div`
     justify-content: space-between;
 `;
 
-export const Title = styled.h1``;
+export const Title = styled.h1`
+    color: #fff;
+`;
 
 export const NavigationHeader = styled.div`
     display: flex;
@@ -28,4 +30,5 @@ export const BackButton = styled.button`
     width: 40px;
     height: 40px;
     outline: 0;
+    margin-right: 20px;
 `;
