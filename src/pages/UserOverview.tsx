@@ -5,32 +5,33 @@ import Card from '../components/Card';
 import {Container} from '../components/GlobalComponents';
 import Header from '../components/Header';
 
-var mapU = (user: UserData) => {
-    var columns = [
-        {
-            key: 'Name',
-            value: `${user.firstName} ${user.lastName}`,
-        },
-        {
-            key: 'Display Name',
-            value: user.displayName,
-        },
-        {
-            key: 'Location',
-            value: user.location,
-        },
-    ];
-    return <Card columns={columns} hasNavigation={false} navigationProps={user} />;
-};
-
 const UserOverview = () => {
     const location = useLocation();
+    const user = location.state as UserData;
+
     return (
         <Container>
             <Header
-                title={`User ${location.state.firstName} ${location.state.lastName}`}
+                title={`User ${user.firstName} ${user.lastName}`}
             />
-            {mapU(location.state)}
+            <Card 
+                hasNavigation={false}
+                navigationProps={user}
+                columns={[
+                    {
+                        key: 'Name',
+                        value: `${user.firstName} ${user.lastName}`,
+                    },
+                    {
+                        key: 'Display Name',
+                        value: user.displayName,
+                    },
+                    {
+                        key: 'Location',
+                        value: user.location,
+                    },
+                ]}
+            />
         </Container>
     );
 };
