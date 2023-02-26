@@ -1,3 +1,4 @@
+import Input from 'components/Input';
 import React from 'react';
 import Card from '../../components/Card';
 import {Container} from '../../components/GlobalComponents';
@@ -6,11 +7,12 @@ import List from '../../components/List';
 import {useComponentState} from './state';
 
 const TeamOverview = () => {
-    const {loading, teamLead, teamName, users} = useComponentState();
+    const {loading, teamLead, teamName, users, filter, onChangeFilter} = useComponentState();
 
     return (
         <Container>
             <Header title={`Team ${teamName}`} />
+            <Input placeholder='Serach by name' value={filter} onChange={onChangeFilter} />
             {!loading && teamLead && <Card 
                 columns={[
                     {

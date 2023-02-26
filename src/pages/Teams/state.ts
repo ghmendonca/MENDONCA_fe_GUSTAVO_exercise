@@ -13,7 +13,7 @@ export const useComponentState = () => {
         }
 
         return teams
-            .filter((team) => filter.length === 0 || team.name.toLowerCase().startsWith(filter.toLowerCase()))
+            .filter((team) => filter.length === 0 || team.name.toLowerCase().includes(filter.toLowerCase()))
             .map((team) => ({
                 id: team.id,
                 url: `/team/${team.id}`,
