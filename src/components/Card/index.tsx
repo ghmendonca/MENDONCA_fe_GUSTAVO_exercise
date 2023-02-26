@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {useNavigate} from 'react-router-dom';
 import {Team, UserData} from 'types';
+import {useComponentState} from './state';
 import {Container} from './styles';
 
-interface Props {
+export interface Props {
     id?: string;
     url?: string;
     columns: Array<{
@@ -21,20 +21,19 @@ const Card = ({
     hasNavigation = true,
     navigationProps = null,
 }: Props): JSX.Element => {
-    const navigate = useNavigate();
+    const {onClick} = useComponentState({
+        id,
+        columns,
+        url,
+        hasNavigation,
+        navigationProps,
+    });
 
     return (
         <Container
             data-testid={`cardContainer-${id}`}
             hasNavigation={hasNavigation}
-            onClick={(e: Event) => {
-                if (hasNavigation) {
-                    navigate(url, {
-                        state: navigationProps,
-                    });
-                }
-                e.preventDefault();
-            }}
+            onClick={onClick}
         >
             {columns.map(({key: columnKey, value}) => (
                 <p key={columnKey}>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useComponentState} from './state';
 import {HeaderContainer, NavigationHeader, BackButton, Title} from './styles';
 
 interface Props {
@@ -8,15 +8,14 @@ interface Props {
 }
 
 const Header = ({title, showBackButton = true}: Props) => {
-    const navigate = useNavigate();
+    const {onClick} = useComponentState();
+
     return (
         <HeaderContainer>
             <NavigationHeader>
                 {showBackButton && (
                     <BackButton
-                        onClick={() => {
-                            navigate(-1);
-                        }}
+                        onClick={onClick}
                     >
                         🔙
                     </BackButton>
