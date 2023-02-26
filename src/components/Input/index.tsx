@@ -1,5 +1,6 @@
+import React, {InputHTMLAttributes} from 'react';
 import styled from 'styled-components';
 
-export default styled.input`
-    
-`;
+const Input = styled.input``;
+
+export default (props: InputHTMLAttributes<HTMLInputElement>) => <Input data-testid="filter" {...props} />;

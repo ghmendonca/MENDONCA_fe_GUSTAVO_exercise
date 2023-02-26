@@ -7,7 +7,7 @@ import {useComponentState} from './state';
 
 const Teams = () => {
     const {loading, teams, filter, onChangeFilter} = useComponentState();
-
+    
     return (
         <Container>
             <Header title="Teams" showBackButton={false} />

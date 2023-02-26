@@ -12,7 +12,7 @@ interface Props {
 
 const List = ({items, hasNavigation = true, isLoading}: Props) => {
     return (
-        <Container>
+        <Container data-testid="list">
             {isLoading && <Spinner />}
             {!isLoading &&
                 items.map(({url, id, columns, navigationProps}, index) => {
