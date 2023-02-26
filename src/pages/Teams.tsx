@@ -25,7 +25,7 @@ const Teams = () => {
             ],
             navigationProps: team,
         }));
-    }, [teams]);    
+    }, [teams]);
 
     return (
         <Container>

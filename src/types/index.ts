@@ -27,5 +27,5 @@ export interface ListItem {
     id: string;
     url?: string;
     columns: Array<ListItemColumn>;
-    navigationProps?: UserData | Team;
+    navigationProps: UserData | Team | null;
 }
