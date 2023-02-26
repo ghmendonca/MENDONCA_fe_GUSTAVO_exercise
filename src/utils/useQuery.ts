@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
 interface UseQueryReturn<T> {
     data: T | null;
@@ -10,18 +10,19 @@ export const useQuery = <T = any>(fn: (() => Promise<T>)): UseQueryReturn<T> => 
         data: null,
         loading: true,
     });
+    const fnRef = useRef(fn);
+
+    const fetch = useCallback(async () => {
+        const response = await fnRef.current();
+        setData({
+            data: response,
+            loading: false,
+        });
+    }, [setData]);
 
     useEffect(() => {
-        const fetch = async () => {
-            const response = await fn();
-            setData({
-                data: response,
-                loading: false,
-            });
-        };
-
         fetch();
-    }, [setData, fn]);
+    }, [fetch]);
 
     return data;
 };
