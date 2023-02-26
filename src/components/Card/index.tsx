@@ -11,7 +11,7 @@ interface Props {
         value: string;
     }>;
     hasNavigation?: boolean;
-    navigationProps: UserData | Team | null;
+    navigationProps?: UserData | Team | null;
 }
 
 const Card = ({

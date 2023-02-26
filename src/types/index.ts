@@ -33,5 +33,5 @@ export interface ListItem {
     id: string;
     url?: string;
     columns: Array<ListItemColumn>;
-    navigationProps: UserData | Team | null;
+    navigationProps?: UserData | Team | null;
 }

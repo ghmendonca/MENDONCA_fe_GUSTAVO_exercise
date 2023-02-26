@@ -1,6 +1,7 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import List from '..';
+import {ListItem} from 'types';
+import List from '.';
 
 jest.mock('react-router-dom', () => ({
     ...(jest.requireActual('react-router-dom') as any),
@@ -9,7 +10,7 @@ jest.mock('react-router-dom', () => ({
 
 describe('List', () => {
     it('should render spinner and not render items when it is loading', () => {
-        const items = [
+        const items: ListItem[] = [
             {
                 id: '1',
                 columns: [
@@ -27,7 +28,7 @@ describe('List', () => {
     });
 
     it('should not render spinner and render items when it is not loading', () => {
-        const items = [
+        const items: ListItem[] = [
             {
                 id: '1',
                 columns: [
@@ -45,7 +46,7 @@ describe('List', () => {
     });
 
     it('should render multiple card when multiple items', () => {
-        const items = [
+        const items: ListItem[] = [
             {
                 id: '1',
                 columns: [
