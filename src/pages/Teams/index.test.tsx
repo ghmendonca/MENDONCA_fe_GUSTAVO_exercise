@@ -59,13 +59,14 @@ describe('Teams', () => {
     it('should filter teams list', async () => {
         render(<Teams />);
 
-        await screen.findByText('Team1');
+        await waitFor(() => {
+            expect(screen.queryByTestId('spinner')).toBeNull();
+        });
 
         const list = await screen.findByTestId('list');
 
         expect(list.childElementCount).toBe(2);
 
-        
         await waitFor(() => {
             const filter = screen.getByTestId('filter');
             fireEvent.change(filter, {target: {value: 'Team2'}});
