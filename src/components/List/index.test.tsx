@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import List from '..';
+import List from '.';
 
 jest.mock('react-router-dom', () => ({
     ...(jest.requireActual('react-router-dom') as any),
@@ -12,15 +12,10 @@ describe('List', () => {
         const items = [
             {
                 id: '1',
-                columns: [
-                    {
-                        key: 'columnKey1',
-                        value: 'columnValue1',
-                    },
-                ],
+                name: 'columnValue1',
             },
         ];
-        render(<List isLoading items={items} />);
+        render(<List isLoading items={items} columns={[{title: 'Name', key: 'name'}]} />);
 
         expect(screen.getByTestId('spinner')).toBeInTheDocument();
         expect(screen.queryByTestId('cardContainer')).not.toBeInTheDocument();
@@ -30,15 +25,10 @@ describe('List', () => {
         const items = [
             {
                 id: '1',
-                columns: [
-                    {
-                        key: 'columnKey1',
-                        value: 'columnValue1',
-                    },
-                ],
+                name: 'columnValue1',
             },
         ];
-        render(<List isLoading={false} items={items} />);
+        render(<List isLoading={false} items={items} columns={[{title: 'Name', key: 'name'}]} />);
 
         expect(screen.queryByTestId('spinner')).not.toBeInTheDocument();
         expect(screen.getByTestId('cardContainer-1')).toBeInTheDocument();
@@ -48,24 +38,14 @@ describe('List', () => {
         const items = [
             {
                 id: '1',
-                columns: [
-                    {
-                        key: 'columnKey1',
-                        value: 'columnValue1',
-                    },
-                ],
+                name: 'columnValue1',
             },
             {
                 id: '2',
-                columns: [
-                    {
-                        key: 'columnKey2',
-                        value: 'columnValue2',
-                    },
-                ],
+                name: 'columnValue2',
             },
         ];
-        render(<List isLoading={false} items={items} />);
+        render(<List isLoading={false} items={items} columns={[{title: 'Name', key: 'name'}]} />);
 
         expect(screen.getByTestId('cardContainer-1')).toBeInTheDocument();
         expect(screen.getByTestId('cardContainer-2')).toBeInTheDocument();
