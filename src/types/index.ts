@@ -24,18 +24,6 @@ export interface UserData {
     avatar: string;
 }
 
-export interface ListItemColumn {
-    key: string;
-    value: string;
-}
-
-export interface ListItem {
-    id: string;
-    url?: string;
-    columns: Array<ListItemColumn>;
-    navigationProps?: UserData | Team | null;
-}
-
 export interface Id {
     id: string;
 }
