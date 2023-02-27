@@ -6,7 +6,7 @@ import {Container} from './styles';
 
 interface Props<T> {
     items: T[];
-    onClick: (item: T) => void;
+    onClick?: (item: T) => void;
     isLoading: boolean;
     columns: {
         title: string,
@@ -26,7 +26,7 @@ const List = <T extends Id = any>({items, onClick, isLoading, columns}: Props<T>
                             key={`${item.id}-${index}`}
                             id={item.id}
                             columns={columns}
-                            onClick={() => onClick(item)}
+                            onClick={onClick ? () => onClick(item) : () => null}
                             item={item}
                         />
                     );
