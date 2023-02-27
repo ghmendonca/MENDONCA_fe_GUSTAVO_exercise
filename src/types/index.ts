@@ -35,3 +35,7 @@ export interface ListItem {
     columns: Array<ListItemColumn>;
     navigationProps?: UserData | Team | null;
 }
+
+export interface Id {
+    id: string;
+}

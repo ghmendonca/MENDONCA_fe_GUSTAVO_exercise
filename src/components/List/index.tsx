@@ -1,29 +1,33 @@
 import * as React from 'react';
-import {ListItem} from 'types';
+import {Id} from 'types';
 import Card from '../Card';
 import {Spinner} from '../Spinner';
 import {Container} from './styles';
 
-interface Props {
-    items: ListItem[];
-    hasNavigation?: boolean;
+interface Props<T> {
+    items: T[];
+    onClick: (item: T) => void;
     isLoading: boolean;
+    columns: {
+        title: string,
+        key?: keyof T,
+        render?: (item: T) => string
+    }[];
 }
 
-const List = ({items, hasNavigation = true, isLoading}: Props) => {
+const List = <T extends Id = any>({items, onClick, isLoading, columns}: Props<T>) => {
     return (
         <Container data-testid="list">
             {isLoading && <Spinner />}
             {!isLoading &&
-                items.map(({url, id, columns, navigationProps}, index) => {
+                items.map((item, index) => {
                     return (
                         <Card
-                            key={`${id}-${index}`}
-                            id={id}
+                            key={`${item.id}-${index}`}
+                            id={item.id}
                             columns={columns}
-                            navigationProps={navigationProps}
-                            hasNavigation={hasNavigation}
-                            url={url}
+                            onClick={() => onClick(item)}
+                            item={item}
                         />
                     );
                 })}

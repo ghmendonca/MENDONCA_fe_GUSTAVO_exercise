@@ -6,13 +6,18 @@ import {Container} from '../../components/GlobalComponents';
 import {useComponentState} from './state';
 
 const Teams = () => {
-    const {loading, teams, filter, onChangeFilter} = useComponentState();
+    const {loading, teams, filter, onChangeFilter, onClick} = useComponentState();
     
     return (
         <Container>
             <Header title="Teams" showBackButton={false} />
             <Input placeholder='Search by name' value={filter} onChange={onChangeFilter} />
-            <List items={teams} isLoading={loading} />
+            <List items={teams} isLoading={loading} columns={[
+                {
+                    title: 'Name',
+                    key: 'name',
+                },
+            ]} onClick={onClick} />
         </Container>
     );
 };

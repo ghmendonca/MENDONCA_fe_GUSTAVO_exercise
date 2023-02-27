@@ -13,20 +13,19 @@ const UserOverview = () => {
                 title={`User ${user.firstName} ${user.lastName}`}
             />
             <Card 
-                hasNavigation={false}
-                navigationProps={user}
+                item={user}
                 columns={[
                     {
-                        key: 'Name',
-                        value: `${user.firstName} ${user.lastName}`,
+                        title: 'Name',
+                        render: (item) => `${item.firstName} ${item.lastName}`,
                     },
                     {
-                        key: 'Display Name',
-                        value: user.displayName,
+                        title: 'Display Name',
+                        key: 'displayName',
                     },
                     {
-                        key: 'Location',
-                        value: user.location,
+                        title: 'Location',
+                        key: 'location',
                     },
                 ]}
             />
